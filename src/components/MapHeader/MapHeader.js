@@ -5,7 +5,7 @@ import moment from "moment";
 import "./MapHeader.scss";
 
 function MapHeader() {
-  console.log(moment().endOf('day'));
+
   return (
     <div className="map-header">
       <DatePicker

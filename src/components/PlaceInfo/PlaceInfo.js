@@ -32,7 +32,7 @@ function PlaceInfo(props) {
   );
 }
 
-PlaceInfo.propTypes = {
+PlaceInfo.defaultProps = {
   onClose: ()=>{}
 };
 

@@ -5,6 +5,15 @@ header {
 }
 
 .app-title {
+}
+
+.app-title .app-title-btn {
+    position: absolute;
+    top: 15px;
+    left: 10px;
+}
+
+.app-title .app-title-text {
     font-size: 20px;
     font-weight: 900;
     letter-spacing: 7px;

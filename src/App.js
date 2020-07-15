@@ -1,17 +1,17 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { BrowserRouter as Router } from "react-router-dom";
 import { SwipeableDrawer } from "@material-ui/core";
 
 import Routes from "./routes";
 
-import AppHeader from "./layouts/AppHeader";
-import AppFooter from "./layouts/AppFooter";
+import AppHeader from "./components/AppHeader";
 import TourSpotList from "./components/TourSpotList";
 
 import "./App.css";
 
 function App() {
-    const [showList, setShowList] = useState(false);
+  const [showList, setShowList] = useState(false);
+
   return (
     <Router>
       <div className="App">
@@ -39,7 +39,6 @@ function App() {
         <main>
           <Routes />
         </main>
-        <AppFooter />
       </div>
     </Router>
   );

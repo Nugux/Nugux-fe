@@ -1,8 +1,7 @@
 import React, {useState} from "react";
 
-import MyMap from "../../components/MyMap";
+import PlaceMap from "../../components/PlaceMap";
 import PlaceInfo from "../../components/PlaceInfo";
-import MapHeader from "../../components/MapHeader";
 
 import "./Main.css";
 
@@ -17,11 +16,7 @@ function Main() {
   };
   return (
     <div className="main">
-      <MyMap
-        googleMapURL="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places"
-        isMarkerShown={false}
-      />
-      <MapHeader />
+      <PlaceMap />
       {drawPlaceInfo()}
     </div>
   );

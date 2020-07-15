@@ -7,17 +7,13 @@ import "./Main.css";
 
 function Main() {
   const [showPlaceInfo, setShowPlaceInfo] = useState(true);
-  const drawPlaceInfo = () => {
-      if(showPlaceInfo) {
-          return (<PlaceInfo onClose={()=>{
-              setShowPlaceInfo(false);
-          }}/>)
-      }
-  };
+
   return (
     <div className="main">
       <PlaceMap />
-      {drawPlaceInfo()}
+      {showPlaceInfo && (
+        <PlaceInfo onClose={() => { setShowPlaceInfo(false); }}/>
+      )}
     </div>
   );
 }

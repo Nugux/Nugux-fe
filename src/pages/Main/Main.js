@@ -1,10 +1,10 @@
 import React from "react";
-import { DatePicker } from 'antd';
+
 import MyMap from "../../components/MyMap";
 import PlaceInfo from "../../components/PlaceInfo";
-import "./Main.css";
+import MapHeader from "../../components/MapHeader";
 
-const { RangePicker } = DatePicker;
+import "./Main.css";
 
 function Main() {
   return (
@@ -13,12 +13,7 @@ function Main() {
         googleMapURL="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=geometry,drawing,places"
         isMarkerShown={false}
       />
-      <RangePicker
-        format="YYYY-MM-DD"
-        onChange={() => {}}
-        onOk={() => {}}
-        placeholder={["출발", "도착"]}
-      />
+      <MapHeader />
       <PlaceInfo />
     </div>
   );

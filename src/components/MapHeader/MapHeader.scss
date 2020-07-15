@@ -1,0 +1,15 @@
+.map-header {
+    .ant-picker {
+        z-index: 10;
+        height: 35px;
+        width: 250px;
+        position: absolute;
+        transform: translate(-50%, 0%);
+        top: 15px;
+        border-radius: 20px;
+
+        .ant-picker-input input {
+            text-align: center;
+        }
+    }
+}

@@ -7,21 +7,3 @@
 .main {
     position: relative;
 }
-
-.main .ant-picker {
-    z-index: 10;
-    height: 35px;
-    width: 370px;
-    /* display: block; */
-    position: absolute;
-    transform: translate(-50%, 0%);
-    top: 15px;
-    /* right: 50%; */
-    /* left: 50%; */
-    /* margin: auto; */
-    border-radius: 20px;
-}
-
-.main .ant-picker .ant-picker-input input {
-    text-align: center;
-}

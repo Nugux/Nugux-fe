@@ -10,3 +10,5 @@ $ npm run start      // localhost:3000
 
 ### 체크리스트 - 개발자는 보시오
 * 헤더 푸터 사이더(?) 레이아웃 영역 만들어놨으나 필요없을 경우 날리기 - 아직 깡통
+* google-map-react : https://github.com/google-map-react/google-map-react
+* ant design : https://ant.design/

@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 
 import MyMap from "../../components/MyMap";
 import PlaceInfo from "../../components/PlaceInfo";
@@ -7,6 +7,14 @@ import MapHeader from "../../components/MapHeader";
 import "./Main.css";
 
 function Main() {
+  const [showPlaceInfo, setShowPlaceInfo] = useState(true);
+  const drawPlaceInfo = () => {
+      if(showPlaceInfo) {
+          return (<PlaceInfo onClose={()=>{
+              setShowPlaceInfo(false);
+          }}/>)
+      }
+  };
   return (
     <div className="main">
       <MyMap
@@ -14,7 +22,7 @@ function Main() {
         isMarkerShown={false}
       />
       <MapHeader />
-      <PlaceInfo />
+      {drawPlaceInfo()}
     </div>
   );
 }

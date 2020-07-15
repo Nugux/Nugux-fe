@@ -23,9 +23,19 @@
     padding-left: 40px;
 }
 
-.place-info .light {
+.place-info .btn-close {
     position: absolute;
     right: 30px;
+    top: 10px;
+    border-width: 0;
+    background: transparent;
+    font-size: 40px;
+    font-weight: bold;
+}
+
+.place-info .light {
+    position: absolute;
+    right: 70px;
     top: 30px;
     width: 90px;
     height: 30px;

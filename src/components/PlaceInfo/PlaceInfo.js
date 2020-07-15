@@ -5,7 +5,7 @@ import { EnvironmentTwoTone, CarOutlined } from "@ant-design/icons";
 
 import "./PlaceInfo.css";
 
-function PlaceInfo() {
+function PlaceInfo(props) {
   return (
     <div className="place-info">
       <Card bordered={false}>
@@ -18,6 +18,9 @@ function PlaceInfo() {
           <div className="light-color yellow" />
           <div className="light-color green" />
         </div>
+        <button className={'btn-close'} onClick={props.onClose}>
+          <span>&times;</span>
+        </button>
         <div className="button-container">
           <Button
             shape="round"
@@ -28,5 +31,9 @@ function PlaceInfo() {
     </div>
   );
 }
+
+PlaceInfo.propTypes = {
+  onClose: ()=>{}
+};
 
 export default PlaceInfo;

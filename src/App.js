@@ -15,26 +15,16 @@ function App() {
   return (
     <Router>
       <div className="App">
-          <SwipeableDrawer
-              onClose={() => {
-              }}
-              onOpen={() => {
-              }}
-              open={showList}
-              disableSwipeToOpen={true}
-              disableBackdropTransition={true}
-              BackdropProps={{
-                  onClick:()=>{
-                      setShowList(false);
-                  }
-              }}
-          >
-              <TourSpotList
-                  onClose={() => {
-                      setShowList(false);
-                  }}
-              />
-          </SwipeableDrawer>
+        <SwipeableDrawer
+          onClose={() => { }}
+          onOpen={() => { }}
+          open={showList}
+          disableSwipeToOpen={true}
+          disableBackdropTransition={true}
+          BackdropProps={{ onClick: () => setShowList(false) }}>
+          <TourSpotList onClose={() => setShowList(false) } />
+        </SwipeableDrawer>
+
         <AppHeader onMenuClicked={()=>{setShowList(true)}}/>
         <main>
           <Routes />

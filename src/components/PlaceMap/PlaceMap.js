@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import GoogleMapReact from "google-map-react";
+import { Button } from "antd";
 
 import MapHeader from "./MapHeader";
+import { useSidebar } from "../../contexts/sidebar-context";
 
-import "./PlaceMap.css";
+import "./PlaceMaps.scss";
 
 const defaultCenter = [37.5647689, 126.7093638];
 
@@ -11,6 +13,7 @@ const defaultCenter = [37.5647689, 126.7093638];
 function PlaceMap() {
   const [location, setLocation] = useState(defaultCenter);
   const [zoomLevel, setZoomLevel] = useState(12);
+  const [, SidebarDispatch] = useSidebar();
 
   const handleDragEnd = ({ center }) => {
     setLocation([center.lat(), center.lng()]);
@@ -31,7 +34,7 @@ function PlaceMap() {
   };
 
   return (
-    <div style={{ height: '100vh', width: '100%' }}>
+    <div className="place-map-container">
       <GoogleMapReact
         bootstrapURLKeys={{ key: process.env.REACT_APP_GOOGLE_MAP_KEY }}
         defaultCenter={defaultCenter}
@@ -41,6 +44,9 @@ function PlaceMap() {
         onZoomAnimationEnd={handleZoom}
       />
       <MapHeader handleSelectDate={handleSelectDate} />
+      <Button className="place-list-btn" onClick={() => SidebarDispatch({ type: "open" })}>
+        주변 관광지 보기
+      </Button>
     </div>
   );
 }

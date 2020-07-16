@@ -12,3 +12,8 @@ $ npm run start      // localhost:3000
 * 헤더 푸터 사이더(?) 레이아웃 영역 만들어놨으나 필요없을 경우 날리기 - 아직 깡통
 * google-map-react : https://github.com/google-map-react/google-map-react
 * ant design : https://ant.design/
+
+### Context API + Hooks
+> REF : https://kentcdodds.com/blog/how-to-use-react-context-effectively
+
+글을 제대로 이해 못한것일도지 모르겠으나.. 구조 너무 복잡한 듯 하고, 왜케 부가작업 할게 많죠?

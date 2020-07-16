@@ -1,34 +1,26 @@
-import React, { useState } from "react";
+import React from "react";
 import { BrowserRouter as Router } from "react-router-dom";
-import { SwipeableDrawer } from "@material-ui/core";
 
 import Routes from "./routes";
 
-import AppHeader from "./components/AppHeader";
-import TourSpotList from "./components/TourSpotList";
+import AppHeader from "./components/layouts/AppHeader";
+import AppSidebar from "./components/layouts/AppSidebar";
+
+import { SidebarProvider } from "./contexts/sidebar-context";
 
 import "./App.css";
 
 function App() {
-  const [showList, setShowList] = useState(false);
-
   return (
     <Router>
       <div className="App">
-        <SwipeableDrawer
-          onClose={() => { }}
-          onOpen={() => { }}
-          open={showList}
-          disableSwipeToOpen={true}
-          disableBackdropTransition={true}
-          BackdropProps={{ onClick: () => setShowList(false) }}>
-          <TourSpotList onClose={() => setShowList(false) } />
-        </SwipeableDrawer>
-
-        <AppHeader onMenuClicked={()=>{setShowList(true)}}/>
-        <main>
-          <Routes />
-        </main>
+        <SidebarProvider>
+          <AppHeader />
+          <AppSidebar />
+          <main>
+            <Routes />
+          </main>
+        </SidebarProvider>
       </div>
     </Router>
   );

@@ -3,7 +3,6 @@ import React, { useReducer } from "react";
 const SidebarStateContext = React.createContext(false);
 const SidebarDispatchContext = React.createContext(null);
 
-
 function sidebarReducer(state, action) {
   switch (action.type) {
     case "open": {

@@ -1,13 +1,12 @@
 import React from "react";
+import Logo from "../../../assets/logo.png";
 
 import "./AppHeader.css";
 
 function AppHeader() {
   return (
     <header>
-      <div className="app-title">
-          <span className="app-title-text">nuguX</span>
-      </div>
+      <img src={Logo} className="app-logo" alt="logo-image" />
     </header>
   );
 }

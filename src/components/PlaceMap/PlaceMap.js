@@ -6,6 +6,8 @@ import MapHeader from "./MapHeader";
 import { useSidebar } from "../../contexts/sidebar-context";
 
 import "./PlaceMaps.scss";
+import {getDailyCongestion} from "../../api/api";
+import {createMarker} from "../Marker/Marker";
 
 const defaultCenter = [37.5647689, 126.7093638];
 
@@ -14,8 +16,10 @@ function PlaceMap() {
   const [location, setLocation] = useState(defaultCenter);
   const [bounds, setBounds] = useState({ne: {lat:0, lng:0}, sw: {lat:0, lng:0}});
   const [zoomLevel, setZoomLevel] = useState(12);
+  const [date, setDate] = useState('');
   const [api, setApi] = useState(null);
   const [, SidebarDispatch] = useSidebar();
+  const [markers, setMarkers] = useState([]);
 
   const calcBounds = () => {
     if(api) {
@@ -33,15 +37,32 @@ function PlaceMap() {
       })
     }
   };
-  const handleDragEnd = ({ center }) => {
-    setLocation([center.lat(), center.lng()]);
-    calcBounds()
+
+  const reloadMarkers = () => {
+    calcBounds();
+    getDailyCongestion(date, bounds.ne, bounds.sw, zoomLevel, ({result, error})=> {
+      if(error) {
+        console.log(error);
+      } else {
+        result.then(list=>{
+          setMarkers(
+              list.map(mapObj=>{
+                return createMarker(mapObj)
+              })
+          )
+        })
+      }
+    })
   };
 
-  const handleSelectDate = (date) => {
-    console.log(`${date}[zoom: ${zoomLevel}]: `, location);
+  const handleDragEnd = ({ center }) => {
+    setLocation([center.lat(), center.lng()]);
+    reloadMarkers()
+  };
 
-    // TODO: date, zoomLevel, location 정보로 리스트 요청
+  const handleSelectDate = (date_) => {
+    setDate(date_);
+    reloadMarkers()
   };
 
   const handleZoom = zoom => {
@@ -63,7 +84,9 @@ function PlaceMap() {
         onDragEnd={handleDragEnd}
         onZoomAnimationEnd={handleZoom}
         onGoogleApiLoaded={({map})=>{setApi(map)}}
-      />
+      >
+      {markers}
+      </GoogleMapReact>
       <MapHeader handleSelectDate={handleSelectDate} />
       <Button className="place-list-btn" onClick={() => SidebarDispatch({ type: "open" })}>
         주변 관광지 보기

@@ -2,13 +2,14 @@
   "name": "angel-hack-fe",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://localhost:8080",
   "dependencies": {
     "@ant-design/icons": "^4.2.1",
+    "@material-ui/core": "^4.11.0",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
     "antd": "^4.4.2",
-    "@material-ui/core": "^4.11.0",
     "google-map-react": "^1.1.7",
     "moment": "^2.27.0",
     "node-sass": "^4.14.1",
@@ -16,7 +17,8 @@
     "react-dom": "^16.13.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
-    "react-swipeable": "^5.5.1"
+    "react-swipeable": "^5.5.1",
+    "res": "file:res"
   },
   "scripts": {
     "start": "react-scripts start",

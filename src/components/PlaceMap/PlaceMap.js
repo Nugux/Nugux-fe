@@ -99,9 +99,13 @@ function PlaceMap() {
       {markers}
       </GoogleMapReact>
       <MapHeader handleSelectDate={handleSelectDate} />
-      <Button className="place-list-btn" onClick={() => SidebarDispatch({ type: "open" })}>
-        주변 관광지 보기
-      </Button>
+      {
+        currentZoomLevel >= 15 && (
+          <Button className="place-list-btn" onClick={() => SidebarDispatch({ type: "open" })}>
+            주변 관광지 보기
+          </Button>
+        )
+      }
     </div>
   );
 }

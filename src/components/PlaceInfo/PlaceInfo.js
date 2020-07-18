@@ -27,7 +27,7 @@ function PlaceInfo() {
     );
   }
 
-  const { name, congestionList, address } = placeInfoState.placeInfo;
+  const { name, congestionList, address, description } = placeInfoState.placeInfo;
 
   return (
     <div className="place-info">
@@ -47,6 +47,9 @@ function PlaceInfo() {
             icon={<SearchOutlined />}>
             <a href={`https://search.naver.com/search.naver?query=${name}`} target="_blank">네이버 검색</a>
           </Button>
+        </div>
+        <div className="place-description">
+          {description}
         </div>
         <div className="place-graph">
           <h2 className="place-graph-title">

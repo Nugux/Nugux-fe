@@ -4,8 +4,11 @@ import { Card, Button } from "antd";
 import { EnvironmentTwoTone, CarOutlined } from "@ant-design/icons";
 
 import "./PlaceInfo.css";
+import {usePlaceInfo} from "../../contexts/place-info-context";
 
 function PlaceInfo(props) {
+  const [placeInfoState, placeInfoDispatch] = usePlaceInfo();
+  // TODO : request detail info
   return (
     <div className="place-info">
       <Card bordered={false}>
@@ -18,7 +21,9 @@ function PlaceInfo(props) {
           <div className="light-color yellow" />
           <div className="light-color green" />
         </div>
-        <button className={'btn-close'} onClick={props.onClose}>
+        <button className={'btn-close'} onClick={()=>{
+          placeInfoDispatch({type:'unset'})
+        }}>
           <span>&times;</span>
         </button>
         <div className="button-container">

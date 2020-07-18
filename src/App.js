@@ -8,6 +8,7 @@ import AppSidebar from "./components/layouts/AppSidebar";
 
 import { SidebarProvider } from "./contexts/sidebar-context";
 import { PlaceListProvider } from "./contexts/place-list-context";
+import {PlaceInfoProvider} from "./contexts/place-info-context";
 
 import "./App.css";
 
@@ -17,11 +18,13 @@ function App() {
       <div className="App">
         <SidebarProvider>
           <PlaceListProvider>
+            <PlaceInfoProvider>
             <AppHeader />
             <AppSidebar />
             <main>
               <Routes />
             </main>
+            </PlaceInfoProvider>
           </PlaceListProvider>
         </SidebarProvider>
       </div>

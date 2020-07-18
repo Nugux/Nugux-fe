@@ -89,7 +89,7 @@ function PlaceMap() {
         defaultZoom={defaultZoom}
         zoom={mapLocationState.zoomLevel}
         center={mapLocationState.location}
-        //onDragEnd={handleDragEnd}
+        onClick={() => PlaceInfoDispatch({ type: "resetInfo" })}
         onBoundsChange={handleDragEnd}
         onZoomAnimationEnd={handleZoom}
         onTilesLoaded={reloadMarkers}

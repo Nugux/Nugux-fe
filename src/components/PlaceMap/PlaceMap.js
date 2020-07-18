@@ -10,14 +10,13 @@ import { usePlaceList } from "../../contexts/place-list-context";
 import "./PlaceMaps.scss";
 import {getDailyCongestion} from "../../api/api";
 import {createMarker} from "../Marker/Marker";
-
-const defaultCenter = [37.5647689, 126.7093638];
+import {defaultCenter, defaultZoom, MapLocationStateContext, useMapLocation} from "../../contexts/place-map-context";
 
 // TODO: 지도 확대/축소 버튼 추가하기
 function PlaceMap() {
-  const [location, setLocation] = useState(defaultCenter);
+  const [mapLocationState, mapLocationDispatch] = useMapLocation();
+  const [currentZoomLevel, setCurrentZoomLevel] = useState(defaultZoom);
   const [bounds, setBounds] = useState({ne: {lat:0, lng:0}, sw: {lat:0, lng:0}});
-  const [zoomLevel, setZoomLevel] = useState(12);
   const [date, setDate] = useState(moment().format("yyyy-MM-DD"));
   const [api, setApi] = useState(null);
   const [, SidebarDispatch] = useSidebar();
@@ -43,7 +42,7 @@ function PlaceMap() {
 
   const reloadMarkers = () => {
     calcBounds();
-    getDailyCongestion(date, bounds.ne, bounds.sw, zoomLevel, ({result, error})=> {
+    getDailyCongestion(date, bounds.ne, bounds.sw, currentZoomLevel, ({result, error})=> {
       if(error) {
         console.log(error);
       } else {
@@ -60,7 +59,6 @@ function PlaceMap() {
   };
 
   const handleDragEnd = ({ center }) => {
-    setLocation([center.lat(), center.lng()]);
     reloadMarkers()
   };
 
@@ -72,23 +70,43 @@ function PlaceMap() {
   const handleZoom = zoom => {
     // TODO: 특정 레벨 이하로 가는거 막기
     if (zoom < 7) {
+      mapLocationDispatch({type:'zoom', zoomLevel:7});
       return;
     }
-    setZoomLevel(zoom);
-    calcBounds();
+    setCurrentZoomLevel(zoom);
+    reloadMarkers()
+  };
+
+  const changeMapProjection = ({zoomLevel, location}) => {
+    if(api) {
+      if (zoomLevel || location) {
+        if (zoomLevel) {
+          api.setZoom(zoomLevel);
+        }
+        if (location) {
+          api.setCenter(location);
+        }
+        mapLocationDispatch({type:'reset'});
+      }
+    }
+    return (<></>)
   };
 
   return (
     <div className="place-map-container">
+      <MapLocationStateContext.Consumer>
+        {changeMapProjection}
+      </MapLocationStateContext.Consumer>
       <GoogleMapReact
         bootstrapURLKeys={{ key: process.env.REACT_APP_GOOGLE_MAP_KEY }}
-        defaultCenter={defaultCenter}
         yesIWantToUseGoogleMapApiInternals
-        zoom={zoomLevel}
-        onDragEnd={handleDragEnd}
+        defaultCenter={defaultCenter}
+        zoom={defaultZoom}
+        //onDragEnd={handleDragEnd}
+        onBoundsChange={handleDragEnd}
         onZoomAnimationEnd={handleZoom}
         onTilesLoaded={reloadMarkers}
-        onGoogleApiLoaded={({map})=>{setApi(map)}}
+        onGoogleApiLoaded={({map})=>{setApi(map);}}
       >
       {markers}
       </GoogleMapReact>

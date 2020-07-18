@@ -11,6 +11,7 @@ import { PlaceListProvider } from "./contexts/place-list-context";
 import {PlaceInfoProvider} from "./contexts/place-info-context";
 
 import "./App.css";
+import {MapLocationProvider} from "./contexts/place-map-context";
 
 function App() {
   return (
@@ -19,11 +20,13 @@ function App() {
         <SidebarProvider>
           <PlaceListProvider>
             <PlaceInfoProvider>
-            <AppHeader />
-            <AppSidebar />
-            <main>
-              <Routes />
-            </main>
+              <MapLocationProvider>
+               <AppHeader />
+               <AppSidebar />
+               <main>
+                 <Routes />
+               </main>
+              </MapLocationProvider>
             </PlaceInfoProvider>
           </PlaceListProvider>
         </SidebarProvider>

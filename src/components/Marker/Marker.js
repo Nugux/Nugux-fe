@@ -3,6 +3,7 @@ import {images} from "res/images";
 
 import "./Marker.scss";
 import {usePlaceInfo} from "../../contexts/place-info-context";
+import {useMapLocation} from "../../contexts/place-map-context";
 
 const getImage = congestion => {
     if (congestion < 2.0) {
@@ -13,11 +14,15 @@ const getImage = congestion => {
     return images.red;
 };
 
-const Marker = ({congestion, title, id}) => {
+const Marker = ({congestion, title, id, lat, long, level}) => {
     const [_, placeInfoDispatch] = usePlaceInfo();
+    const [__, mapLocationDispatch] = useMapLocation();
     const handleClick = () => {
-        if(id) {
+        if(level === 'SPOT') {
             placeInfoDispatch({type: 'set', payload: id})
+        } else {
+            const zoomLevel = (level === 'STATE')?11:15;
+            mapLocationDispatch({type: 'location', location:{lat:lat, lng:long}, zoomLevel: zoomLevel})
         }
     };
 
@@ -39,19 +44,30 @@ const Marker = ({congestion, title, id}) => {
 };
 
 export const createMarker = (mapObj) => {
-    const getTitle = (mapObj) => {
+    const spotLevel = (mapObj) => {
         if (mapObj.name) {
-            return mapObj.name
+            return 'SPOT'
         } else if (mapObj.city) {
-            return mapObj.city
+            return 'CITY'
         } else {
-            return mapObj.state
+            return 'STATE'
+        }
+    };
+    const getTitle = (mapObj, spotLevel) => {
+        switch (spotLevel) {
+            case 'SPOT':
+                return mapObj.name;
+            case 'CITY':
+                return mapObj.city;
+            case 'STATE':
+                return mapObj.state;
         }
     };
     return (
         <Marker
             key={`${mapObj.state}${mapObj.city}${mapObj.name}`}
-            title={getTitle(mapObj)}
+            level={spotLevel(mapObj)}
+            title={getTitle(mapObj, spotLevel(mapObj))}
             lat={mapObj.lat}
             lng={mapObj.long}
             {...mapObj}

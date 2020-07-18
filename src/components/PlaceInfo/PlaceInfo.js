@@ -31,7 +31,7 @@ function PlaceInfo() {
     );
   }
 
-  const { name, congestionList, address, description, image } = placeInfoState.placeInfo;
+  const { name, congestionList, address, description, image, lat, lng} = placeInfoState.placeInfo;
 
   return (
     <div className="place-info">

@@ -67,6 +67,8 @@ export const AreaMarker = ({ api, congestion, title, lat, long, level }) => {
         }
     });
 
+    setCallback(title, handleClick);
+
     const constructBoundary = () => {
         features = api.data.addGeoJson(json[title], {
             idPropertyName:title

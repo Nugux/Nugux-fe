@@ -21,7 +21,7 @@ const IMAGE_SERVER = process.env.REACT_APP_SERVER;
 const days = ["일", "월", "화", "수", "목", "금", "토"];
 function PlaceInfo() {
   const [placeInfoState] = usePlaceInfo();
-  console.log(placeInfoState.placeInfo);
+
   // 선택된 장소가 있을 때만 영역이 표시되도록 함
   if (!placeInfoState.selectedPlaceId) {
     return (

@@ -11,6 +11,7 @@ import { usePlaceInfo } from "../../contexts/place-info-context";
 import { getCongestionColor, getDayColor } from "../../utils/getColor";
 
 import "./PlaceInfo.scss";
+import {zipQueryString} from "../../api/api";
 
 const IMAGE_SERVER = process.env.REACT_APP_SERVER;
 
@@ -41,10 +42,17 @@ function PlaceInfo() {
         <p className="address">{address}</p>
         <div className="button-container">
           <Button
-            shape="round"
-            danger
-            onClick={() => window.alert("여기까지 구현하고 싶었는데 못했지요 :(")}
-            icon={<CarOutlined />}>길찾기</Button>
+              shape="round"
+              danger
+              icon={<CarOutlined />}>
+            <a href={`https://api2.sktelecom.com/tmap/app/routes?${zipQueryString({
+              appKey:process.env.REACT_APP_TMAP_KEY,
+              name:name,
+              lat:lat,
+              lon:lng
+            })}`}
+               target="_blank">길찾기</a>
+          </Button>
           <Button
             shape="round"
             danger

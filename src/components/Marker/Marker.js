@@ -22,11 +22,16 @@ const Marker = ({ congestion, title, id , lat, long, level }) => {
     const handleClick = async () => {
         if (level === 'SPOT') {
             const result = await getTouristSpotDetail(id);
+            console.log(result);
             placeInfoDispatch({
                 type: "fetch",
                 payload: {
                     id,
-                    placeInfo: result,
+                    placeInfo: {
+                        ...result,
+                        lat:lat,
+                        lng:long
+                    },
                 }
             });
         } else {

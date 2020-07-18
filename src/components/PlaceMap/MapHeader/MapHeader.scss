@@ -7,10 +7,38 @@
         transform: translate(-50%, 0%);
         top: 85px;
         border-radius: 20px;
+        border: 1px solid #ff4d4f;
+        --antd-wave-shadow-color: #ff4d4f;
+
+        &:hover {
+            border: 1px solid #ff4d4f;
+        }
+
+        &.ant-picker-focused {
+            box-shadow: none;
+        }
+
+        svg {
+            color: #ff4d4f;
+        }
 
         .ant-picker-input input {
             text-align: center;
             letter-spacing: -0.5px;
+            color: #ff4d4f;
         }
     }
 }
+
+.ant-picker-panel-container {
+    a.ant-picker-today-btn {
+        color: #ff4d4f;
+    }
+}
+
+.ant-picker-content {
+    .ant-picker-cell-in-view.ant-picker-cell-today .ant-picker-cell-inner::before {
+        border: 1px solid #ff4d4f;
+    }
+}
+

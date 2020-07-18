@@ -1,9 +1,8 @@
 import React from "react";
 
-import { images } from "res/images";
-import { usePlaceInfo } from "../../contexts/place-info-context";
-import { useMapLocation } from "../../contexts/place-map-context";
-import { getTouristSpotDetail } from "../../api/api";
+import {images} from "res/images";
+import {usePlaceInfo} from "../../contexts/place-info-context";
+import {getTouristSpotDetail} from "../../api/api";
 
 import "./Marker.scss";
 import {AreaMarker} from "../AreaMarker/AreaMarker";
@@ -18,23 +17,17 @@ const getImage = (level, congestion) => {
     return dict.red;
 };
 
-const Marker = ({ congestion, title, id , lat, long, level }) => {
+const Marker = ({ congestion, title, id, level }) => {
     const [, placeInfoDispatch] = usePlaceInfo();
-    const [, mapLocationDispatch] = useMapLocation();
     const handleClick = async () => {
-        if (level === 'SPOT') {
-            const result = await getTouristSpotDetail(id);
-            placeInfoDispatch({
-                type: "fetch",
-                payload: {
-                    id,
-                    placeInfo: result,
-                }
-            });
-        } else {
-            const zoomLevel = (level === 'STATE') ? 11 : 15;
-            mapLocationDispatch({ type: 'location', location: { lat: lat, lng: long }, zoomLevel: zoomLevel})
-        }
+        const result = await getTouristSpotDetail(id);
+        placeInfoDispatch({
+            type: "fetch",
+            payload: {
+                id,
+                placeInfo: result,
+            }
+        });
     };
 
     let label = title;

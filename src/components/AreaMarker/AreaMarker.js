@@ -91,11 +91,6 @@ export const AreaMarker = ({ api, congestion, title, lat, long, level }) => {
         }
     }, []);
 
-    let label = title;
-    if (label.length > 8) {
-        label = `${label.substr(0, 7)}...`
-    }
-
     return (
         <div
             key={`dummy`}

@@ -5,6 +5,7 @@ import { Button } from "antd";
 
 import MapHeader from "./MapHeader";
 import { useSidebar } from "../../contexts/sidebar-context";
+import { usePlaceList } from "../../contexts/place-list-context";
 
 import "./PlaceMaps.scss";
 import {getDailyCongestion} from "../../api/api";
@@ -20,6 +21,7 @@ function PlaceMap() {
   const [date, setDate] = useState(moment().format("yyyy-MM-DD"));
   const [api, setApi] = useState(null);
   const [, SidebarDispatch] = useSidebar();
+  const [, PlaceListDispatch] = usePlaceList();
   const [markers, setMarkers] = useState([]);
 
   const calcBounds = () => {
@@ -45,13 +47,14 @@ function PlaceMap() {
       if(error) {
         console.log(error);
       } else {
-        result.then(list=>{
-          setMarkers(
-              list.map(mapObj=>{
-                return createMarker(mapObj)
-              })
-          )
-        })
+        result.then(list => {
+          const placeList = list.map(mapObj => createMarker(mapObj));
+          PlaceListDispatch({
+            type: "fetch",
+            payload: placeList
+          });
+          setMarkers(placeList);
+        });
       }
     })
   };

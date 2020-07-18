@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import GoogleMapReact from "google-map-react";
 import moment from "moment";
 import { Button } from "antd";
+import { UnorderedListOutlined } from "@ant-design/icons";
 
 import MapHeader from "./MapHeader";
 import { useSidebar } from "../../contexts/sidebar-context";
@@ -99,9 +100,19 @@ function PlaceMap() {
       {markers}
       </GoogleMapReact>
       <MapHeader handleSelectDate={handleSelectDate} />
-      <Button className="place-list-btn" onClick={() => SidebarDispatch({ type: "open" })}>
-        주변 관광지 보기
-      </Button>
+      {
+        currentZoomLevel >= 15 && (
+          <Button
+            className="place-list-btn"
+            size="large"
+            danger
+            shape="round"
+            onClick={() => SidebarDispatch({ type: "open" })}>
+            <UnorderedListOutlined />
+            주변 관광지 보기
+          </Button>
+        )
+      }
     </div>
   );
 }

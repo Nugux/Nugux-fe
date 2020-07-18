@@ -17,3 +17,5 @@ $ npm run start      // localhost:3000
 > REF : https://kentcdodds.com/blog/how-to-use-react-context-effectively
 
 글을 제대로 이해 못한것일도지 모르겠으나.. 구조 너무 복잡한 듯 하고, 왜케 부가작업 할게 많죠?
+
+프로젝트 끝날 쯤 느낀 점 : 암만 봐도 뭔가 잘못썼다..ㅎ 다시 알아보쟈^^.. 

@@ -25,9 +25,10 @@ function PlaceMap() {
   const [, PlaceInfoDispatch] = usePlaceInfo();
   const [markers, setMarkers] = useState([]);
 
-  const calcBounds = () => {
-    if(api) {
-      const bound = api.getBounds();
+  const calcBounds = (api_) => {
+    const apiInst = api || api_;
+    if(apiInst) {
+      const bound = apiInst.getBounds();
       const [sw, ne] = [bound.getNorthEast(), bound.getSouthWest()];
       setBounds({
         sw: {
@@ -42,8 +43,8 @@ function PlaceMap() {
     }
   };
 
-  const reloadMarkers = () => {
-    calcBounds();
+  const reloadMarkers = (api_) => {
+    calcBounds(api_);
     PlaceInfoDispatch({ type: "resetInfo" });
     getDailyCongestion(date, bounds.ne, bounds.sw, currentZoomLevel, ({result, error})=> {
       if(error) {
@@ -93,7 +94,7 @@ function PlaceMap() {
         onBoundsChange={handleDragEnd}
         onZoomAnimationEnd={handleZoom}
         onTilesLoaded={reloadMarkers}
-        onGoogleApiLoaded={({map})=>{setApi(map);}}
+        onGoogleApiLoaded={({map})=>{setApi(map); reloadMarkers(map)}}
       >
       {markers}
       </GoogleMapReact>

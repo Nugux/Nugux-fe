@@ -5,10 +5,19 @@ import { EnvironmentTwoTone, CarOutlined } from "@ant-design/icons";
 
 import "./PlaceInfo.css";
 import {usePlaceInfo} from "../../contexts/place-info-context";
+import {getTouristSpotDetail} from "../../api/api";
 
 function PlaceInfo(props) {
   const [placeInfoState, placeInfoDispatch] = usePlaceInfo();
-  // TODO : request detail info
+  getTouristSpotDetail(placeInfoState.selectedPlaceId, ({result, error})=> {
+    if(error) {
+      console.log(error);
+    } else {
+      result.then(placeInfo => {
+        console.log(placeInfo);
+      });
+    }
+  });
   return (
     <div className="place-info">
       <Card bordered={false}>

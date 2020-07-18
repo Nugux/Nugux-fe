@@ -2,6 +2,7 @@ const prefix = '/api/v1/';
 const urls = {
     getTouristSpotInfo: 'tourist-spot',
     getDailyCongestion: 'daily-congestion',
+    getTouristSpotDetail: (id)=>`tourist-spot/${id}/detail`,
 
 };
 
@@ -79,6 +80,15 @@ const getTouristSpotInfo = (date, northEast, southWest, callback) => {
         southWestLong: southWest.lng,
     };
     fetch(`${process.env.REACT_APP_SERVER}${prefix}${urls.getTouristSpotInfo}?${zipQueryString(params)}`, sharedOpt)
+        .then(onSuccessAction(callback),
+            onErrorAction(callback))
+};
+
+export const getTouristSpotDetail = (id, callback) => {
+    const params = {
+        id: id,
+    };
+    fetch(`${process.env.REACT_APP_SERVER}${prefix}${urls.getTouristSpotDetail(id)}?${zipQueryString(params)}`, sharedOpt)
         .then(onSuccessAction(callback),
             onErrorAction(callback))
 };

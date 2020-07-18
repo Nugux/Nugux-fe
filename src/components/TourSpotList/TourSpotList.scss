@@ -20,7 +20,7 @@
     }
 
     .ant-list-lg .ant-list-item {
-        padding: 10px 0 10px 25px;
+        padding: 15px 20px 10px 25px;
     }
     .ant-list-item {
         cursor: pointer;
@@ -31,8 +31,26 @@
             background: rgba(229, 58, 64, 0.1);
         }
 
+        .item-title {
+            letter-spacing: -1px;
+            font-weight: 700;
+
+            svg {
+                margin-right: 5px;
+            }
+        }
+
+        .item-description {
+            letter-spacing: -0.8px;
+            line-height: 1.5;
+        }
+
         .ant-list-item-meta {
             margin-bottom: 0;
         }
     }
+}
+
+.ant-list-vertical .ant-list-item-meta-title {
+    margin-bottom: 7px;
 }

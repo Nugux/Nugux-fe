@@ -2,7 +2,6 @@
   "name": "angel-hack-fe",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://218.147.116.251:8080/",
   "dependencies": {
     "@ant-design/icons": "^4.2.1",
     "@material-ui/core": "^4.11.0",

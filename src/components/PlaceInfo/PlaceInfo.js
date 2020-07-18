@@ -11,7 +11,7 @@ import { usePlaceInfo } from "../../contexts/place-info-context";
 
 import "./PlaceInfo.scss";
 
-const getColor = congestion => {
+const getCongestionColor = congestion => {
   if (congestion < 2.0) {
     return "#75D701";   // GREEN
   } else if (congestion < 3.5) {
@@ -20,10 +20,21 @@ const getColor = congestion => {
   return "#ff7473";   // RED
 };
 
+const getDayColor = day => {
+  if (day === "일") {
+    return "red";
+  } else if (day === "토") {
+    return "#2b90d9";   // BLUE
+  }
+  return "black";
+};
+
+const IMAGE_SERVER = process.env.REACT_APP_SERVER;
+
 /**
  * @return {null}
  */
-const days = ["월", "화", "수", "목", "금", "토", "일"];
+const days = ["일", "월", "화", "수", "목", "금", "토"];
 function PlaceInfo() {
   const [placeInfoState] = usePlaceInfo();
   console.log(placeInfoState.placeInfo);
@@ -36,7 +47,7 @@ function PlaceInfo() {
     );
   }
 
-  const { name, congestionList, address, description } = placeInfoState.placeInfo;
+  const { name, congestionList, address, description, image } = placeInfoState.placeInfo;
 
   return (
     <div className="place-info">
@@ -49,6 +60,7 @@ function PlaceInfo() {
           <Button
             shape="round"
             danger
+            onClick={() => window.alert("여기까지 구현하고 싶었는데 못했지요 :(")}
             icon={<CarOutlined />}>길찾기</Button>
           <Button
             shape="round"
@@ -58,7 +70,8 @@ function PlaceInfo() {
           </Button>
         </div>
         <div className="place-description">
-          {description}
+          <img src={`${IMAGE_SERVER}${image}`} alt="장소 이미지" />
+          <span>{description}</span>
         </div>
         <div className="place-graph">
           <h2 className="place-graph-title">
@@ -73,9 +86,11 @@ function PlaceInfo() {
                       className="graph-item-bar"
                       style={{
                         height: `${congestionList[idx] * 20}px`,
-                        backgroundColor: getColor(congestionList[idx]),
+                        backgroundColor: getCongestionColor(congestionList[idx]),
                       }} />
-                    <span className="graph-item-day">{day}</span>
+                    <span
+                      className="graph-item-day"
+                      style={{ color: getDayColor(day) }}>{day}</span>
                   </div>
                 )
               })

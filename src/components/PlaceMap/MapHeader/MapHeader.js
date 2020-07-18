@@ -15,6 +15,7 @@ function MapHeader({ handleSelectDate = () => {} }) {
         onChange={(date, dateString) => { handleSelectDate(dateString); }}
         placeholder={"언제 여행 가시나요?"}
         disabledDate={(date) => date && date < moment().endOf("day").subtract(1, "day")}
+        inputReadOnly={true}
       />
     </div>
   );

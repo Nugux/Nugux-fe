@@ -7,13 +7,14 @@ import { getTouristSpotDetail } from "../../api/api";
 
 import "./Marker.scss";
 
-const getImage = congestion => {
+const getImage = (level, congestion) => {
+    const dict = (level !== 'SPOT')? images.lens:images.marker;
     if (congestion < 2.0) {
-        return images.green;
+        return dict.green;
     } else if (congestion < 3.5) {
-        return images.yellow;
+        return dict.yellow;
     }
-    return images.red;
+    return dict.red;
 };
 
 const Marker = ({ congestion, title, id , lat, long, level }) => {
@@ -42,8 +43,8 @@ const Marker = ({ congestion, title, id , lat, long, level }) => {
 
     return (
         <div className={'marker-container'} onClick={handleClick}>
-            <img src={getImage(congestion)}
-                 className={'marker-img'}
+            <img src={getImage(level, congestion)}
+                 className={`${level!=='SPOT'?'lens':'marker'}`}
                  alt={title}
             />
             <span className={'marker-label'}>{label}</span>

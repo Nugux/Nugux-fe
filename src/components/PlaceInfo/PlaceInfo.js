@@ -4,21 +4,19 @@ import {
   EnvironmentTwoTone,
   CarOutlined,
   SearchOutlined,
-  BarChartOutlined
 } from "@ant-design/icons";
 
 import { usePlaceInfo } from "../../contexts/place-info-context";
-import { getCongestionColor, getDayColor } from "../../utils/getColor";
+import PlaceInfoGraph from "./PlaceInfoGraph";
+import {zipQueryString} from "../../api/api";
 
 import "./PlaceInfo.scss";
-import {zipQueryString} from "../../api/api";
 
 const IMAGE_SERVER = process.env.REACT_APP_SERVER;
 
 /**
  * @return {null}
  */
-const days = ["일", "월", "화", "수", "목", "금", "토"];
 function PlaceInfo() {
   const [placeInfoState] = usePlaceInfo();
 
@@ -31,7 +29,14 @@ function PlaceInfo() {
     );
   }
 
-  const { name, congestionList, address, description, image, lat, lng} = placeInfoState.placeInfo;
+  const {
+    name,
+    address,
+    description,
+    image,
+    lat,
+    lng
+  } = placeInfoState.placeInfo;
 
   return (
     <div className="place-info">
@@ -64,30 +69,7 @@ function PlaceInfo() {
           <img src={`${IMAGE_SERVER}${image}`} alt="장소 이미지" />
           <span>{description}</span>
         </div>
-        <div className="place-graph">
-          <h2 className="place-graph-title">
-            <BarChartOutlined /> 요일별 혼잡도
-          </h2>
-          <div className="graph-container">
-            {
-              days.map((day, idx) => {
-                return (
-                  <div className="graph-item">
-                    <span
-                      className="graph-item-bar"
-                      style={{
-                        height: `${congestionList[idx] * 20}px`,
-                        backgroundColor: getCongestionColor(congestionList[idx]),
-                      }} />
-                    <span
-                      className="graph-item-day"
-                      style={{ color: getDayColor(day) }}>{day}</span>
-                  </div>
-                )
-              })
-            }
-          </div>
-        </div>
+        <PlaceInfoGraph {...placeInfoState.placeInfo} />
       </Card>
     </div>
   );

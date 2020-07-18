@@ -8,7 +8,7 @@ import AppSidebar from "./components/layouts/AppSidebar";
 
 import { SidebarProvider } from "./contexts/sidebar-context";
 import { PlaceListProvider } from "./contexts/place-list-context";
-import {PlaceInfoProvider} from "./contexts/place-info-context";
+import { PlaceInfoProvider } from "./contexts/place-info-context";
 
 import "./App.css";
 import {MapLocationProvider} from "./contexts/place-map-context";

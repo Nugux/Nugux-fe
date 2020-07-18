@@ -5,12 +5,20 @@ const PlaceInfoDispatchContext = React.createContext(null);
 
 function placeInfoReducer(state, action) {
   switch (action.type) {
-    case "set": {
-      return { selectedPlaceId: action.payload }
+    case "fetch": {
+      return {
+        ...state,
+        selectedPlaceId: action.payload.id,
+        placeInfo: action.payload.placeInfo
+      }
     }
 
-    case "unset": {
-      return { selectedPlaceId: false }
+    case "resetInfo": {
+      return {
+        ...state,
+        selectedPlaceId: null,
+        placeInfo: null
+      }
     }
 
     default: {
@@ -20,7 +28,8 @@ function placeInfoReducer(state, action) {
 }
 
 const initialState = {
-  selectedPlaceId: false,
+  selectedPlaceId: null,
+  placeInfo: {}
 };
 
 function PlaceInfoProvider({ children })  {

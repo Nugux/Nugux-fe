@@ -1,53 +1,105 @@
 import React from "react";
 import { Card, Button } from "antd";
+import {
+  EnvironmentTwoTone,
+  CarOutlined,
+  SearchOutlined,
+  BarChartOutlined
+} from "@ant-design/icons";
 
-import { EnvironmentTwoTone, CarOutlined } from "@ant-design/icons";
+import { usePlaceInfo } from "../../contexts/place-info-context";
 
-import "./PlaceInfo.css";
-import {usePlaceInfo} from "../../contexts/place-info-context";
-import {getTouristSpotDetail} from "../../api/api";
+import "./PlaceInfo.scss";
 
-function PlaceInfo(props) {
-  const [placeInfoState, placeInfoDispatch] = usePlaceInfo();
-  getTouristSpotDetail(placeInfoState.selectedPlaceId, ({result, error})=> {
-    if(error) {
-      console.log(error);
-    } else {
-      result.then(placeInfo => {
-        console.log(placeInfo);
-      });
-    }
-  });
+const getCongestionColor = congestion => {
+  if (congestion < 2.0) {
+    return "#75D701";   // GREEN
+  } else if (congestion < 3.5) {
+    return "rgba(239, 220, 5, 0.75)";   // YELLOW
+  }
+  return "#ff7473";   // RED
+};
+
+const getDayColor = day => {
+  if (day === "일") {
+    return "red";
+  } else if (day === "토") {
+    return "#2b90d9";   // BLUE
+  }
+  return "black";
+};
+
+const IMAGE_SERVER = process.env.REACT_APP_SERVER;
+
+/**
+ * @return {null}
+ */
+const days = ["일", "월", "화", "수", "목", "금", "토"];
+function PlaceInfo() {
+  const [placeInfoState] = usePlaceInfo();
+  console.log(placeInfoState.placeInfo);
+  // 선택된 장소가 있을 때만 영역이 표시되도록 함
+  if (!placeInfoState.selectedPlaceId) {
+    return (
+      <div className="place-info inactive">
+        <Card bordered={false} />
+      </div>
+    );
+  }
+
+  const { name, congestionList, address, description, image } = placeInfoState.placeInfo;
+
   return (
     <div className="place-info">
       <Card bordered={false}>
-        <h1>
-          <EnvironmentTwoTone /> 롯데월드
+        <h1 className="place-title">
+          <EnvironmentTwoTone twoToneColor="red" /> {name}
         </h1>
-        <p className="address">서울특별시 송파구 잠실동 올림픽로 240</p>
-        <div className="light">
-          <div className="light-color red" />
-          <div className="light-color yellow" />
-          <div className="light-color green" />
-        </div>
-        <button className={'btn-close'} onClick={()=>{
-          placeInfoDispatch({type:'unset'})
-        }}>
-          <span>&times;</span>
-        </button>
+        <p className="address">{address}</p>
         <div className="button-container">
           <Button
             shape="round"
-            type="primary"
+            danger
+            onClick={() => window.alert("여기까지 구현하고 싶었는데 못했지요 :(")}
             icon={<CarOutlined />}>길찾기</Button>
+          <Button
+            shape="round"
+            danger
+            icon={<SearchOutlined />}>
+            <a href={`https://search.naver.com/search.naver?query=${name}`} target="_blank">네이버 검색</a>
+          </Button>
+        </div>
+        <div className="place-description">
+          <img src={`${IMAGE_SERVER}${image}`} alt="장소 이미지" />
+          <span>{description}</span>
+        </div>
+        <div className="place-graph">
+          <h2 className="place-graph-title">
+            <BarChartOutlined /> 요일별 혼잡도
+          </h2>
+          <div className="graph-container">
+            {
+              days.map((day, idx) => {
+                return (
+                  <div className="graph-item">
+                    <span
+                      className="graph-item-bar"
+                      style={{
+                        height: `${congestionList[idx] * 20}px`,
+                        backgroundColor: getCongestionColor(congestionList[idx]),
+                      }} />
+                    <span
+                      className="graph-item-day"
+                      style={{ color: getDayColor(day) }}>{day}</span>
+                  </div>
+                )
+              })
+            }
+          </div>
         </div>
       </Card>
     </div>
   );
 }
-
-PlaceInfo.defaultProps = {
-  onClose: ()=>{}
-};
 
 export default PlaceInfo;

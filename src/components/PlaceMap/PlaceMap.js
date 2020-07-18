@@ -77,31 +77,15 @@ function PlaceMap() {
     reloadMarkers()
   };
 
-  const changeMapProjection = ({zoomLevel, location}) => {
-    if(api) {
-      if (zoomLevel || location) {
-        if (zoomLevel) {
-          api.setZoom(zoomLevel);
-        }
-        if (location) {
-          api.setCenter(location);
-        }
-        mapLocationDispatch({type:'reset'});
-      }
-    }
-    return (<></>)
-  };
-
   return (
     <div className="place-map-container">
-      <MapLocationStateContext.Consumer>
-        {changeMapProjection}
-      </MapLocationStateContext.Consumer>
       <GoogleMapReact
         bootstrapURLKeys={{ key: process.env.REACT_APP_GOOGLE_MAP_KEY }}
         yesIWantToUseGoogleMapApiInternals
         defaultCenter={defaultCenter}
-        zoom={defaultZoom}
+        defaultZoom={defaultZoom}
+        zoom={mapLocationState.zoomLevel}
+        center={mapLocationState.location}
         //onDragEnd={handleDragEnd}
         onBoundsChange={handleDragEnd}
         onZoomAnimationEnd={handleZoom}

@@ -16,10 +16,6 @@ function mapLocationReducer(state, action) {
       return { zoomLevel: action.zoomLevel, location: action.location }
     }
 
-    case "reset": {
-      return { zoomLevel: null, location: null }
-    }
-
     default: {
       throw new Error(`Unhandled action type: ${action.type}`)
     }
@@ -62,4 +58,4 @@ function useMapLocation() {
   return [useMapLocationState(), useMapLocationDispatch()];
 }
 
-export { MapLocationProvider, useMapLocation, MapLocationStateContext }
+export { MapLocationProvider, useMapLocation }

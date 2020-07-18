@@ -9,8 +9,11 @@
 
     .place-list-btn {
         position: absolute;
-        top: 65px;
-        right: 0;
+        bottom: 65px;
+        right: 50%;
         z-index: 1;
+        transform: translate(50%, 0);
+        letter-spacing: -1px;
+        font-weight: 700;
     }
 }

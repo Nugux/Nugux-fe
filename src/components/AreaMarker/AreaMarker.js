@@ -5,18 +5,6 @@ import { useMapLocation } from "../../contexts/place-map-context";
 import "./AreaMarker.scss";
 import {geojson} from "res/geojson";
 
-/*
-const getImage = (level, congestion) => {
-    const dict = (level !== 'SPOT')? images.lens:images.marker;
-    if (congestion < 2.0) {
-        return dict.green;
-    } else if (congestion < 3.5) {
-        return dict.yellow;
-    }
-    return dict.red;
-};
-*/
-
 const __STATE_KEY = 'CTP_KOR_NM';
 const __CITY_KEY = 'SIG_KOR_NM';
 
@@ -63,6 +51,21 @@ export const AreaMarker = ({ api, congestion, title, lat, long, level }) => {
     const json = (level === 'STATE')?geojson.state:geojson.city;
 
     let features = null;
+
+    setStyleDrawer(title, () => {
+        let color = '';
+        if (congestion < 2.0) {
+            color = 'green';
+        } else if (congestion < 3.5) {
+            color = 'yellow';
+        } else {
+            color = 'red';
+        }
+        return {
+            fillColor: color,
+            strokeWeight: 2,
+        }
+    });
 
     const constructBoundary = () => {
         features = api.data.addGeoJson(json[title], {

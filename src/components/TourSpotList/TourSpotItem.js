@@ -7,7 +7,9 @@ import { useSidebar } from "../../contexts/sidebar-context";
 import { usePlaceInfo } from "../../contexts/place-info-context";
 import { getTouristSpotDetail } from "../../api/api";
 
-function TourSpotItem({ title, congestion, description, id, shortDesc }) {
+const IMAGE_SERVER = process.env.REACT_APP_SERVER;
+
+function TourSpotItem({ title, congestion, description, id, shortDesc, image }) {
   const [, sidebarDispatch] = useSidebar();
   const [, placeInfoDispatch] = usePlaceInfo();
   return (
@@ -35,8 +37,10 @@ function TourSpotItem({ title, congestion, description, id, shortDesc }) {
               }}/> {title}
           </span>
         )}
-        description={description} />
-      <span className="item-description">{shortDesc}...</span>
+        description={<span className="item-description">{shortDesc}...</span>} />
+      <div className="item-image-container">
+        <img src={`${IMAGE_SERVER}${image}`} alt="관광지 사진"/>
+      </div>
     </List.Item>
   );
 }

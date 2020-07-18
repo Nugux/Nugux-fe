@@ -12,7 +12,6 @@ import "./TourSpotList.scss";
 function TourSpotList() {
     const [placeListState] = usePlaceList();
     const [, sidebarDispatch] = useSidebar();
-
     return (
         <Swipeable
             className={'tour-spot-list-view'}

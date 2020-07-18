@@ -20,15 +20,34 @@
     }
 
     .ant-list-lg .ant-list-item {
-        padding: 15px 20px 10px 25px;
+        padding: 15px;
     }
     .ant-list-item {
         cursor: pointer;
+        display: flex;
 
         &:hover,
         &:focus {
             transition: 0.2s;
             background: rgba(229, 58, 64, 0.1);
+
+            .item-image-container img {
+                transform: scale(1.1);
+                transition: 0.3s;
+            }
+        }
+
+        .item-image-container {
+            width: 70px;
+            height: 70px;
+            overflow: hidden;
+            display: flex;
+            border-radius: 5px;
+            margin-left: 10px;
+
+            img {
+                width: 100px;
+            }
         }
 
         .item-title {
@@ -47,10 +66,10 @@
 
         .ant-list-item-meta {
             margin-bottom: 0;
+
+            .ant-list-item-meta-title {
+                margin-bottom: 5px;
+            }
         }
     }
-}
-
-.ant-list-vertical .ant-list-item-meta-title {
-    margin-bottom: 7px;
 }

@@ -6,11 +6,12 @@ import { Button } from "antd";
 import MapHeader from "./MapHeader";
 import { useSidebar } from "../../contexts/sidebar-context";
 import { usePlaceList } from "../../contexts/place-list-context";
+import { usePlaceInfo } from "../../contexts/place-info-context";
 
 import "./PlaceMaps.scss";
 import {getDailyCongestion} from "../../api/api";
 import {createMarker} from "../Marker/Marker";
-import {defaultCenter, defaultZoom, MapLocationStateContext, useMapLocation} from "../../contexts/place-map-context";
+import { defaultCenter, defaultZoom, MapLocationStateContext, useMapLocation } from "../../contexts/place-map-context";
 
 // TODO: 지도 확대/축소 버튼 추가하기
 function PlaceMap() {
@@ -21,6 +22,7 @@ function PlaceMap() {
   const [api, setApi] = useState(null);
   const [, SidebarDispatch] = useSidebar();
   const [, PlaceListDispatch] = usePlaceList();
+  const [, PlaceInfoDispatch] = usePlaceInfo();
   const [markers, setMarkers] = useState([]);
 
   const calcBounds = () => {
@@ -42,6 +44,7 @@ function PlaceMap() {
 
   const reloadMarkers = () => {
     calcBounds();
+    PlaceInfoDispatch({ type: "resetInfo" });
     getDailyCongestion(date, bounds.ne, bounds.sw, currentZoomLevel, ({result, error})=> {
       if(error) {
         console.log(error);
@@ -70,11 +73,11 @@ function PlaceMap() {
   const handleZoom = zoom => {
     // TODO: 특정 레벨 이하로 가는거 막기
     if (zoom < 7) {
-      mapLocationDispatch({type:'zoom', zoomLevel:7});
+      mapLocationDispatch({ type: 'zoom', zoomLevel: 7 });
       return;
     }
     setCurrentZoomLevel(zoom);
-    reloadMarkers()
+    reloadMarkers();
   };
 
   return (

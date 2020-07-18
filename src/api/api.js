@@ -84,11 +84,21 @@ const getTouristSpotInfo = (date, northEast, southWest, callback) => {
             onErrorAction(callback))
 };
 
-export const getTouristSpotDetail = (id, callback) => {
+export const getTouristSpotDetail = id => {
     const params = {
         id: id,
     };
-    fetch(`${process.env.REACT_APP_SERVER}${prefix}${urls.getTouristSpotDetail(id)}?${zipQueryString(params)}`, sharedOpt)
-        .then(onSuccessAction(callback),
-            onErrorAction(callback))
+    return fetch(`${process.env.REACT_APP_SERVER}${prefix}${urls.getTouristSpotDetail(id)}?${zipQueryString(params)}`, sharedOpt)
+        .then(
+          res => {
+            if (res.status !== 200) {
+                return null;
+            }
+            return res.json();
+          },
+          error => {
+            console.log(error);
+            return null;
+          }
+        );
 };

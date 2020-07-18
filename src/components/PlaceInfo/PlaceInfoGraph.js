@@ -3,7 +3,7 @@ import { BarChartOutlined } from "@ant-design/icons";
 
 import { getCongestionColor, getDayColor } from "../../utils/getColor";
 
-const days = ["일", "월", "화", "수", "목", "금", "토"];
+const days = ["월", "화", "수", "목", "금", "토", "일"];
 
 function PlaceInfoGraph({ congestionList }) {
   return (

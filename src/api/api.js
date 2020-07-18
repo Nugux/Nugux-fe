@@ -22,9 +22,11 @@ const convSpotLevel = (level) => {
 };
 export const getDailyCongestion = (date, northEast, southWest, spotLevel, callback) => {
     const translated = convSpotLevel(spotLevel);
-    (translated === 'SPOT')?
+    if (translated === 'SPOT') {
+        getTouristSpotInfo(date, northEast, southWest, callback)
+    } else {
         getDailyCongestionOfCity(date, northEast, southWest, translated, callback)
-        :getTouristSpotInfo(date, northEast, southWest, callback)
+    }
 };
 const onSuccessAction = (callback) => {
     return res => {

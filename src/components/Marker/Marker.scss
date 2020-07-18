@@ -1,6 +1,12 @@
 // TODO : Fix CSS...
 .marker-container {
   width: 40px;
+  cursor: pointer;
+
+  &:hover {
+    transform: scale(1.1);
+    transition: 0.3s;
+  }
 }
 
 .marker-container .marker-img {

@@ -6,6 +6,7 @@ import { useMapLocation } from "../../contexts/place-map-context";
 import { getTouristSpotDetail } from "../../api/api";
 
 import "./Marker.scss";
+import {AreaMarker} from "../AreaMarker/AreaMarker";
 
 const getImage = (level, congestion) => {
     const dict = (level !== 'SPOT')? images.lens:images.marker;
@@ -52,34 +53,45 @@ const Marker = ({ congestion, title, id , lat, long, level }) => {
     )
 };
 
-export const createMarker = (mapObj) => {
-    const spotLevel = (mapObj) => {
-        if (mapObj.name) {
-            return 'SPOT'
-        } else if (mapObj.city) {
-            return 'CITY'
-        } else {
-            return 'STATE'
-        }
-    };
-    const getTitle = (mapObj, spotLevel) => {
-        switch (spotLevel) {
-            case 'SPOT':
-                return mapObj.name;
-            case 'CITY':
-                return mapObj.city;
-            case 'STATE':
-                return mapObj.state;
-        }
-    };
+export const createMarker = (api, mapObj) => {
+    let spotLevel = '';
+    if (mapObj.name) {
+        spotLevel = 'SPOT'
+    } else if (mapObj.city) {
+        spotLevel = 'CITY'
+    } else {
+        spotLevel = 'STATE'
+    }
+    let title = '';
+    switch (spotLevel) {
+        case 'SPOT':
+            title = mapObj.name;
+            break;
+        case 'CITY':
+            title = mapObj.city;
+            break;
+        case 'STATE':
+            title = mapObj.state;
+            break;
+    }
     return (
-        <Marker
+        (spotLevel === 'SPOT')?
+            (<Marker
             key={`${mapObj.state}${mapObj.city}${mapObj.name}`}
-            level={spotLevel(mapObj)}
-            title={getTitle(mapObj, spotLevel(mapObj))}
+            level={spotLevel}
+            title={title}
             lat={mapObj.lat}
             lng={mapObj.long}
             {...mapObj}
-        />
+        />):
+            (<AreaMarker
+                key={`${mapObj.state}${mapObj.city}${mapObj.name}`}
+                level={spotLevel}
+                title={title}
+                lat={mapObj.lat}
+                lng={mapObj.long}
+                api={api}
+                {...mapObj}
+            />)
     )
 };

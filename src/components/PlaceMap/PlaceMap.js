@@ -13,6 +13,8 @@ import "./PlaceMaps.scss";
 import {getDailyCongestion} from "../../api/api";
 import {createMarker} from "../Marker/Marker";
 import { defaultCenter, defaultZoom, MapLocationStateContext, useMapLocation } from "../../contexts/place-map-context";
+import {geojson} from "res/geojson";
+import {commonOnClickCallback, commonStyleDrawer} from "../AreaMarker/AreaMarker";
 
 // TODO: 지도 확대/축소 버튼 추가하기
 function PlaceMap() {
@@ -48,11 +50,13 @@ function PlaceMap() {
     calcBounds(api_);
     PlaceInfoDispatch({ type: "resetInfo" });
     getDailyCongestion(date, bounds.ne, bounds.sw, currentZoomLevel, ({result, error})=> {
+      if(!api)
+        return;
       if(error) {
         console.log(error);
       } else {
         result.then(list => {
-          const placeList = list.map(mapObj => createMarker(mapObj));
+          const placeList = list.map(mapObj => createMarker(api, mapObj));
           PlaceListDispatch({
             type: "fetch",
             payload: placeList
@@ -82,6 +86,13 @@ function PlaceMap() {
     reloadMarkers();
   };
 
+  const initMapApi = map => {
+    setApi(map);
+    reloadMarkers(map);
+    map.data.addListener('click', commonOnClickCallback);
+    map.data.setStyle(commonStyleDrawer);
+  };
+
   return (
     <div className="place-map-container">
       <GoogleMapReact
@@ -95,7 +106,7 @@ function PlaceMap() {
         onBoundsChange={handleDragEnd}
         onZoomAnimationEnd={handleZoom}
         onTilesLoaded={reloadMarkers}
-        onGoogleApiLoaded={({map})=>{setApi(map); reloadMarkers(map)}}
+        onGoogleApiLoaded={({map})=>{initMapApi(map)}}
       >
       {markers}
       </GoogleMapReact>

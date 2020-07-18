@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import GoogleMapReact from "google-map-react";
+import moment from "moment";
 import { Button } from "antd";
 
 import MapHeader from "./MapHeader";
 import { useSidebar } from "../../contexts/sidebar-context";
+import { usePlaceList } from "../../contexts/place-list-context";
 
 import "./PlaceMaps.scss";
 import {getDailyCongestion} from "../../api/api";
@@ -16,9 +18,10 @@ function PlaceMap() {
   const [location, setLocation] = useState(defaultCenter);
   const [bounds, setBounds] = useState({ne: {lat:0, lng:0}, sw: {lat:0, lng:0}});
   const [zoomLevel, setZoomLevel] = useState(12);
-  const [date, setDate] = useState('');
+  const [date, setDate] = useState(moment().format("yyyy-MM-DD"));
   const [api, setApi] = useState(null);
   const [, SidebarDispatch] = useSidebar();
+  const [, PlaceListDispatch] = usePlaceList();
   const [markers, setMarkers] = useState([]);
 
   const calcBounds = () => {
@@ -44,13 +47,14 @@ function PlaceMap() {
       if(error) {
         console.log(error);
       } else {
-        result.then(list=>{
-          setMarkers(
-              list.map(mapObj=>{
-                return createMarker(mapObj)
-              })
-          )
-        })
+        result.then(list => {
+          const placeList = list.map(mapObj => createMarker(mapObj));
+          PlaceListDispatch({
+            type: "fetch",
+            payload: placeList
+          });
+          setMarkers(placeList);
+        });
       }
     })
   };

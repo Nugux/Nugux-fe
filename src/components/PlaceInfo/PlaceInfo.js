@@ -11,6 +11,15 @@ import { usePlaceInfo } from "../../contexts/place-info-context";
 
 import "./PlaceInfo.scss";
 
+const getColor = congestion => {
+  if (congestion < 2.0) {
+    return "#75D701";   // GREEN
+  } else if (congestion < 3.5) {
+    return "rgba(239, 220, 5, 0.75)";   // YELLOW
+  }
+  return "#ff7473";   // RED
+};
+
 /**
  * @return {null}
  */
@@ -63,7 +72,8 @@ function PlaceInfo() {
                     <span
                       className="graph-item-bar"
                       style={{
-                        height: `${congestionList[idx] * 20}px`
+                        height: `${congestionList[idx] * 20}px`,
+                        backgroundColor: getColor(congestionList[idx]),
                       }} />
                     <span className="graph-item-day">{day}</span>
                   </div>
@@ -76,9 +86,5 @@ function PlaceInfo() {
     </div>
   );
 }
-
-PlaceInfo.defaultProps = {
-  onClose: ()=>{}
-};
 
 export default PlaceInfo;

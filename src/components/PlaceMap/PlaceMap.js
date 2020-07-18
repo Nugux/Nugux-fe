@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import GoogleMapReact from "google-map-react";
+import moment from "moment";
 import { Button } from "antd";
 
 import MapHeader from "./MapHeader";
@@ -16,7 +17,7 @@ function PlaceMap() {
   const [location, setLocation] = useState(defaultCenter);
   const [bounds, setBounds] = useState({ne: {lat:0, lng:0}, sw: {lat:0, lng:0}});
   const [zoomLevel, setZoomLevel] = useState(12);
-  const [date, setDate] = useState('');
+  const [date, setDate] = useState(moment().format("yyyy-MM-DD"));
   const [api, setApi] = useState(null);
   const [, SidebarDispatch] = useSidebar();
   const [markers, setMarkers] = useState([]);

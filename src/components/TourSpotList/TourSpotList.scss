@@ -1,0 +1,38 @@
+.tour-spot-list-view {
+    width: 70vw;
+    padding-bottom: 20px;
+
+    .ant-list .ant-list-pagination {
+        text-align: center;
+    }
+
+    .title {
+        padding: 20px 0 0 20px;
+        font-weight: 700;
+        color: #E81123;
+        letter-spacing: -1px;
+
+        svg {
+            stroke: #E81123;
+            stroke-width: 25px;
+            font-weight: 900;
+        }
+    }
+
+    .ant-list-lg .ant-list-item {
+        padding: 10px 0 10px 25px;
+    }
+    .ant-list-item {
+        cursor: pointer;
+
+        &:hover,
+        &:focus {
+            transition: 0.2s;
+            background: rgba(229, 58, 64, 0.1);
+        }
+
+        .ant-list-item-meta {
+            margin-bottom: 0;
+        }
+    }
+}

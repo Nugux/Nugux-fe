@@ -31,7 +31,7 @@ function PlaceInfo() {
     );
   }
 
-  const { name, congestionList, address, description, image, lat, lng} = placeInfoState.placeInfo;
+  const { name, congestionList, address, description, image, lat, long} = placeInfoState.placeInfo;
 
   return (
     <div className="place-info">
@@ -49,7 +49,7 @@ function PlaceInfo() {
               appKey:process.env.REACT_APP_TMAP_KEY,
               name:name,
               lat:lat,
-              lon:lng
+              lon:long
             })}`}
                target="_blank">길찾기</a>
           </Button>

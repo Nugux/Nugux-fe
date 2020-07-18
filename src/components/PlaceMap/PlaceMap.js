@@ -83,6 +83,7 @@ function PlaceMap() {
         zoom={zoomLevel}
         onDragEnd={handleDragEnd}
         onZoomAnimationEnd={handleZoom}
+        onTilesLoaded={reloadMarkers}
         onGoogleApiLoaded={({map})=>{setApi(map)}}
       >
       {markers}

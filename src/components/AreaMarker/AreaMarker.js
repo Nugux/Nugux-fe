@@ -64,18 +64,23 @@ export const AreaMarker = ({ api, congestion, title, lat, long, level, state}) =
 
     setStyleDrawer(title, () => {
         let color = '';
-        let color2 = '';
-        let color3 = '';
-        if (congestion < 2.0) {
-            color = '#00aa00';
-            color2 = '#00dd00';
-        } else if (congestion < 3.5) {
-            color = '#aaaa00';
-            color2 = '#dddd00';
+        let r = 0;
+        let g = 0;
+        const colorParam = Math.round((congestion/5.0)*600);
+        if(colorParam > 255) {
+            r = 255
         } else {
-            color = '#aa0000';
-            color2 = '#dd0000';
+            r = colorParam
         }
+
+        if(colorParam > 510) {
+            g = 0
+        } else {
+            g = 255 - (colorParam - 255)
+        }
+
+        color = `#${r.toString(16)}${g.toString(16)}00`;
+
         return {
             fillColor: color,
             strokeWeight: 2,

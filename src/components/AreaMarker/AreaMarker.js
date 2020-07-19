@@ -70,7 +70,6 @@ export const AreaMarker = ({ api, congestion, title, lat, long, level, state}) =
         const r = Math.min(Math.round(rParam * multiplier), 255);
         const g = Math.min(Math.round(gParam * multiplier), 255);
         const color = `#${r.toString(16).padStart(2, '0')}${g.toString(16).padStart(2, '0')}00`;
-        console.log(rParam, gParam, r, g, color);
         return {
             fillColor: color,
             strokeWeight: 2,

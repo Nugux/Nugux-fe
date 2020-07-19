@@ -1,4 +1,4 @@
-const duplicateNames = ['중구', '서구', '남구', '동구', '북구'];
+const duplicateNames = ['중구', '서구', '남구', '동구', '북구', '강서구', '고성군'];
 const __STATE_KEY = 'CTP_KOR_NM';
 const __CITY_KEY = 'SIG_KOR_NM';
 const convGeoJsonArrayToDict = (json, key) => {

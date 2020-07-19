@@ -53,8 +53,8 @@ export const AreaMarker = ({ api, congestion, title, lat, long, level, state}) =
     if (level === 'STATE') {
         json = geojson.state
     } else{
-        if(isDuplicate(title)) {
-            json = geojson.city_duplicated;
+        if(isDuplicate(title) && geojson.city_duplicated[state]) {
+            json = geojson.city_duplicated[state];
         } else {
             json = geojson.city;
         }
@@ -63,7 +63,6 @@ export const AreaMarker = ({ api, congestion, title, lat, long, level, state}) =
     let features = null;
 
     setStyleDrawer(title, () => {
-        let color = '';
         let r = 0;
         let g = 0;
         const colorParam = Math.round((congestion/5.0)*600);
@@ -79,7 +78,7 @@ export const AreaMarker = ({ api, congestion, title, lat, long, level, state}) =
             g = 255 - (colorParam - 255)
         }
 
-        color = `#${r.toString(16)}${g.toString(16)}00`;
+        const color = `#${r.toString(16)}${g.toString(16)}00`;
 
         return {
             fillColor: color,
@@ -91,13 +90,7 @@ export const AreaMarker = ({ api, congestion, title, lat, long, level, state}) =
     setCallback(title, handleClick);
 
     const constructBoundary = () => {
-        let gj = null;
-        if(isDuplicate(title) && json[state] && json[state][title]) {
-            gj = json[state][title]
-        } else {
-            gj = json[title];
-        }
-        features = api.data.addGeoJson(gj, {
+        features = api.data.addGeoJson(json[title], {
             idPropertyName:title
         })
     };

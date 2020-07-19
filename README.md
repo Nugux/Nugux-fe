@@ -1,21 +1,20 @@
-## Nugux-fe
+# Nugux-fe
 
+코로나 시대, 어디로 갈지 고민하는 사람들을 위해 주변 관광지의 복잡도를 알려주는 누구X 입니다.
+
+## 설치 및 실행
 ```
 $ npm install
 $ npm run start      // localhost:3000
 ```
+dependency를 설치 후 실행하면 3000번 포트에 개발 서버가 오픈됩니다.
 
-* 상태관리 툴을 꼭 써야할까..?
-* develop 브랜치 안만들게여 feature 에서 작업하고 바로 마스터에 꽂아버리기!!!
+> 구글 맵에 사용된 KEY는 `.env` 파일에 있으므로 프로젝트 매니저에게 요청해야 합니다.
 
-### 체크리스트 - 개발자는 보시오
-* 헤더 푸터 사이더(?) 레이아웃 영역 만들어놨으나 필요없을 경우 날리기 - 아직 깡통
+## 사용한 라이브러리
+* react : https://github.com/facebook/react
+* moment : https://github.com/moment/moment
 * google-map-react : https://github.com/google-map-react/google-map-react
 * ant design : https://ant.design/
 
-### Context API + Hooks
-> REF : https://kentcdodds.com/blog/how-to-use-react-context-effectively
-
-글을 제대로 이해 못한것일도지 모르겠으나.. 구조 너무 복잡한 듯 하고, 왜케 부가작업 할게 많죠?
-
-프로젝트 끝날 쯤 느낀 점 : 암만 봐도 뭔가 잘못썼다..ㅎ 다시 알아보쟈^^.. 
+상태관리는 외부 라이브러리를 사용하지 않고 Context API + hooks를 활용했습니다.[(참고)](https://kentcdodds.com/blog/how-to-use-react-context-effectively)

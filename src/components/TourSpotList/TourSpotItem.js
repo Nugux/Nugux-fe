@@ -1,6 +1,6 @@
 import React from "react";
 import { List } from "antd";
-import { RightCircleOutlined } from "@ant-design/icons";
+import {CrownFilled, RightCircleOutlined} from "@ant-design/icons";
 
 import { getCongestionColor } from "../../utils/getColor";
 import { useSidebar } from "../../contexts/sidebar-context";
@@ -9,9 +9,10 @@ import { getTouristSpotDetail } from "../../api/api";
 
 const IMAGE_SERVER = process.env.REACT_APP_SERVER;
 
-function TourSpotItem({ title, congestion, description, id, shortDesc, image }) {
+function TourSpotItem({ title, congestion, description, id, shortDesc, image, premium }) {
   const [, sidebarDispatch] = useSidebar();
   const [, placeInfoDispatch] = usePlaceInfo();
+  const Icon = (premium)?CrownFilled:RightCircleOutlined;
   return (
     <List.Item
       key={title}
@@ -29,7 +30,7 @@ function TourSpotItem({ title, congestion, description, id, shortDesc, image }) 
       <List.Item.Meta
         title={(
           <span className="item-title">
-            <RightCircleOutlined
+            <Icon
               style={{
                 color: getCongestionColor(congestion),
                 stroke: getCongestionColor(congestion),

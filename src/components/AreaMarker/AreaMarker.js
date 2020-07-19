@@ -64,9 +64,13 @@ export const AreaMarker = ({ api, congestion, title, lat, long, level, state}) =
 
     setStyleDrawer(title, () => {
         const colorParam = Math.max(((congestion-1.5)/3.5), 0);
-        const r = Math.min(Math.round(colorParam * 300), 255);
-        const g = Math.min(300 - Math.round(colorParam * 255), 255);
+        const rParam = Math.min(colorParam, 0.5)*2;
+        const gParam = 1-Math.max(colorParam-0.5, 0)*2;
+        const multiplier = 400; // 색 차이가 좀 더 두드러지도록...
+        const r = Math.min(Math.round(rParam * multiplier), 255);
+        const g = Math.min(Math.round(gParam * multiplier), 255);
         const color = `#${r.toString(16).padStart(2, '0')}${g.toString(16).padStart(2, '0')}00`;
+        console.log(rParam, gParam, r, g, color);
         return {
             fillColor: color,
             strokeWeight: 2,

@@ -87,9 +87,15 @@ export const AreaMarker = ({ api, congestion, title, lat, long, level, state}) =
 
     const destructBoundary = () => {
         api.data.forEach((feature)=> {
-            const key = feature.getProperty(__CITY_KEY) || feature.getProperty(__STATE_KEY);
-            if(key === title) {
-                api.data.remove(feature);
+            if(isDuplicate(title)) {
+                if(feature.getProperty(__CITY_KEY) === title && feature.getProperty(__STATE_KEY) === state) {
+                    api.data.remove(feature);
+                }
+            } else {
+                const key = feature.getProperty(__CITY_KEY) || feature.getProperty(__STATE_KEY);
+                if (key === title) {
+                    api.data.remove(feature);
+                }
             }
         })
     };
